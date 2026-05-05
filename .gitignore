@@ -1,6 +1,8 @@
 node_modules/
 dist/
 release/
+chrome-web-store-screenshots-1280x800/
+STORE_SUBMISSION.md
 
 .DS_Store
 *.log

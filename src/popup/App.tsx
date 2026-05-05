@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import { COMMON_LANGUAGES } from "../shared/constants";
 import { SHORTCUTS_PAGE_URL } from "../shared/shortcuts";
 import {
+  createTab,
   getActiveTab,
   openExtensionOptionsPage,
   sendMessageToActiveTab
@@ -187,7 +188,7 @@ export function App() {
 
   async function openShortcutSettings() {
     try {
-      await chrome.tabs.create({ url: SHORTCUTS_PAGE_URL });
+      await createTab({ url: SHORTCUTS_PAGE_URL });
     } catch {
       setStatus({ key: "popup.shortcutOpenFailed" });
     }

@@ -8,6 +8,13 @@ import {
 } from "../shared/storage";
 import { SELECTION_TRANSLATE_COMMAND_ID } from "../shared/shortcuts";
 import { createTranslator } from "../shared/i18n";
+import {
+  getAllCommands,
+  queryTabs,
+  setActionBadgeBackgroundColor,
+  setActionBadgeText,
+  setActionTitle
+} from "../shared/chrome";
 import type {
   ContentMessage,
   ExtensionResponse,
@@ -46,7 +53,7 @@ chrome.runtime.onMessage.addListener(
   }
 );
 
-chrome.commands.onCommand.addListener((command, tab) => {
+chrome.commands?.onCommand?.addListener((command, tab) => {
   void handleCommand(command, tab).catch((error) => {
     void showCommandError(tab?.id, error);
   });
@@ -137,12 +144,12 @@ function getSafeContentTranslationError(
 }
 
 async function getCommandShortcut(commandName: string): Promise<string> {
-  const commands = await chrome.commands.getAll();
+  const commands = await getAllCommands();
   return commands.find((command) => command.name === commandName)?.shortcut ?? "";
 }
 
 async function getCurrentTabId(): Promise<number | undefined> {
-  const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+  const tabs = await queryTabs({ active: true, currentWindow: true });
   return tabs[0]?.id;
 }
 
@@ -248,15 +255,15 @@ async function showCommandError(
       ? error.message
       : createTranslator("system")("error.backgroundFailed");
 
-  await chrome.action.setBadgeBackgroundColor({
+  await setActionBadgeBackgroundColor({
     tabId: activeTabId,
     color: "#b91c1c"
   });
-  await chrome.action.setBadgeText({ tabId: activeTabId, text: "!" });
-  await chrome.action.setTitle({ tabId: activeTabId, title: message });
+  await setActionBadgeText({ tabId: activeTabId, text: "!" });
+  await setActionTitle({ tabId: activeTabId, title: message });
   globalThis.setTimeout(() => {
-    void chrome.action.setBadgeText({ tabId: activeTabId, text: "" });
-    void chrome.action.setTitle({
+    void setActionBadgeText({ tabId: activeTabId, text: "" });
+    void setActionTitle({
       tabId: activeTabId,
       title: chrome.i18n.getMessage("extensionName") || "AI Translate"
     });

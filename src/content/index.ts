@@ -68,6 +68,11 @@ const SELECTION_TRANSLATION_COOLDOWN_MS = 2500;
 const INLINE_TRANSLATION_MAX_CHARS = 24;
 const BUBBLE_WIDTH = 344;
 const BUBBLE_ESTIMATED_HEIGHT = 220;
+const FALLBACK_SHORTCUTS = {
+  translateSelection: new Set(["alt+shift+t", "ctrl+shift+y", "meta+shift+y"]),
+  translateFullPage: new Set(["alt+shift+f", "ctrl+shift+u", "meta+shift+u"]),
+  restorePage: new Set(["alt+shift+r", "ctrl+shift+e", "meta+shift+e"])
+};
 const EDITABLE_SELECTOR =
   "input, textarea, select, option, [role='textbox'], [contenteditable]:not([contenteditable='false'])";
 const UNSAFE_TRANSLATION_SELECTOR = [
@@ -122,6 +127,7 @@ document.addEventListener("keyup", (event) => {
   }
   handleSelectionGesture(event);
 });
+document.addEventListener("keydown", handleFallbackShortcut, true);
 document.addEventListener("scroll", removeSelectionBubble, { passive: true });
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
@@ -456,6 +462,82 @@ function startSelectionTranslationFromShortcut(payload: {
       uiLanguage: payload.uiLanguage ?? "system"
     }
   });
+}
+
+function handleFallbackShortcut(event: KeyboardEvent) {
+  if (!event.isTrusted || event.repeat || isKeyboardEventInEditableContext(event)) {
+    return;
+  }
+
+  const shortcut = getShortcutSignature(event);
+  const command =
+    FALLBACK_SHORTCUTS.translateSelection.has(shortcut)
+      ? "translate-selection"
+      : FALLBACK_SHORTCUTS.translateFullPage.has(shortcut)
+        ? "translate-full-page"
+        : FALLBACK_SHORTCUTS.restorePage.has(shortcut)
+          ? "restore-page"
+          : null;
+
+  if (!command) return;
+  event.preventDefault();
+  event.stopPropagation();
+  void runFallbackShortcut(command).catch(() => undefined);
+}
+
+async function runFallbackShortcut(
+  command: "translate-selection" | "translate-full-page" | "restore-page"
+) {
+  const settings = await getPublicSettingsForContent();
+
+  if (command === "translate-selection") {
+    showSelectionBubble({
+      autoTranslate: true,
+      forceRefresh: false,
+      point: undefined,
+      settings
+    });
+    return;
+  }
+
+  if (command === "translate-full-page") {
+    startFullPageTranslation({
+      targetLanguage: settings.targetLanguage,
+      style: settings.style,
+      uiLanguage: settings.uiLanguage,
+      translationAppearance: settings.translationAppearance
+    });
+    return;
+  }
+
+  restorePage();
+}
+
+async function getPublicSettingsForContent(): Promise<Settings> {
+  try {
+    return await sendRuntimeMessage<Settings>({ type: "GET_PUBLIC_SETTINGS" });
+  } catch {
+    return sendRuntimeMessage<Settings>({ type: "GET_SETTINGS" });
+  }
+}
+
+function getShortcutSignature(event: KeyboardEvent): string {
+  const parts: string[] = [];
+  if (event.ctrlKey) parts.push("ctrl");
+  if (event.metaKey) parts.push("meta");
+  if (event.altKey) parts.push("alt");
+  if (event.shiftKey) parts.push("shift");
+  parts.push(event.key.toLowerCase());
+  return parts.join("+");
+}
+
+function isKeyboardEventInEditableContext(event: KeyboardEvent): boolean {
+  const target = event.target;
+  if (!(target instanceof Element)) return false;
+  return Boolean(
+    target.closest(EDITABLE_SELECTOR) ||
+      (target instanceof HTMLElement && target.isContentEditable)
+  );
 }
 
 function showSelectionBubble(options?: {

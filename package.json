@@ -1,12 +1,30 @@
 {
   "name": "ai-translate-extension",
-  "version": "0.1.0",
+  "version": "0.1.2",
+  "description": "Chrome / Chromium Manifest V3 extension for AI-powered selected-text and full-page bilingual translation.",
   "private": true,
   "type": "module",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mstscmsn/AI-Translate-Assistant.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mstscmsn/AI-Translate-Assistant/issues"
+  },
+  "homepage": "https://github.com/mstscmsn/AI-Translate-Assistant#readme",
+  "keywords": [
+    "chrome-extension",
+    "chromium-extension",
+    "translation",
+    "ai",
+    "openai-compatible",
+    "manifest-v3"
+  ],
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "tsc --noEmit && vite build",
-    "package:webstore": "npm run build && mkdir -p release && cd dist && zip -rFS ../release/ai-translate-assistant-0.1.0-webstore.zip . -x '*/.DS_Store' '.DS_Store' 'icons/*.svg' 'icons/icon1024.png' 'icons/*preview*.png'",
+    "package:webstore": "npm run build && mkdir -p release && cd dist && zip -rFS ../release/ai-translate-assistant-0.1.2-webstore.zip . -x '*/.DS_Store' '.DS_Store' 'icons/*.svg' 'icons/icon1024.png' 'icons/*preview*.png'",
     "typecheck": "tsc --noEmit",
     "preview": "vite preview --host 127.0.0.1"
   },

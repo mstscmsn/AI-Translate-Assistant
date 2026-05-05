@@ -10,7 +10,11 @@ import {
 } from "lucide-react";
 import { FormEvent, useEffect, useState } from "react";
 import { COMMON_LANGUAGES } from "../shared/constants";
-import { sendRuntimeMessage } from "../shared/chrome";
+import {
+  createTab,
+  getAllCommands,
+  sendRuntimeMessage
+} from "../shared/chrome";
 import { COMMAND_DEFINITIONS, SHORTCUTS_PAGE_URL } from "../shared/shortcuts";
 import {
   createTranslator,
@@ -187,23 +191,7 @@ export function App() {
     setTesting(true);
     setStatus({ key: "options.testingApi", tone: "loading" });
     try {
-      const response = await sendRuntimeMessage<TranslationResponse>(
-        {
-          type: "TEST_TRANSLATION_CONFIG",
-          payload: {
-            settings,
-            request: {
-              texts: ["Hello, this is a quick translation test."],
-              targetLanguage: settings.targetLanguage,
-              style: settings.style,
-              pageUrl: "options",
-              mode: "selection",
-              forceRefresh: true
-            }
-          }
-        },
-        settings.uiLanguage
-      );
+      const response = await requestTestTranslation(settings);
       setStatus({
         key: "options.testSucceeded",
         values: {
@@ -223,15 +211,53 @@ export function App() {
     }
   }
 
+  async function requestTestTranslation(
+    activeSettings: Settings
+  ): Promise<TranslationResponse> {
+    const request = {
+      texts: ["Hello, this is a quick translation test."],
+      targetLanguage: activeSettings.targetLanguage,
+      style: activeSettings.style,
+      pageUrl: "options",
+      mode: "selection" as const,
+      forceRefresh: true
+    };
+
+    try {
+      return await sendRuntimeMessage<TranslationResponse>(
+        {
+          type: "TEST_TRANSLATION_CONFIG",
+          payload: {
+            settings: activeSettings,
+            request
+          }
+        },
+        activeSettings.uiLanguage
+      );
+    } catch (error) {
+      if (!isUnknownRuntimeMessage(error, activeSettings.uiLanguage)) {
+        throw error;
+      }
+      const saved = await saveSettings(activeSettings);
+      setSettings(saved);
+      return sendRuntimeMessage<TranslationResponse>(
+        {
+          type: "TRANSLATE_TEXTS",
+          payload: request
+        },
+        saved.uiLanguage
+      );
+    }
+  }
+
   async function refreshCommands() {
-    if (!chrome.commands?.getAll) return;
-    const next = await chrome.commands.getAll();
+    const next = await getAllCommands();
     setCommands(next);
   }
 
   async function openShortcutSettings() {
     try {
-      await chrome.tabs.create({ url: SHORTCUTS_PAGE_URL });
+      await createTab({ url: SHORTCUTS_PAGE_URL });
     } catch {
       setStatus({
         key: "options.shortcutOpenFailed",
@@ -697,4 +723,23 @@ function getStatusText(
     ? { ...status.values, name: t(status.templateNameKey) }
     : status.values;
   return t(status.key, values);
+}
+
+function isUnknownRuntimeMessage(error: unknown, uiLanguage: UILanguage): boolean {
+  const message = error instanceof Error ? error.message : String(error);
+  const normalized = message.toLowerCase();
+  const candidates = new Set([
+    createTranslator(uiLanguage)("error.unknownRuntimeMessage"),
+    createTranslator("system")("error.unknownRuntimeMessage"),
+    createTranslator("zh-CN")("error.unknownRuntimeMessage"),
+    createTranslator("en-US")("error.unknownRuntimeMessage")
+  ]);
+  return (
+    candidates.has(message) ||
+    normalized.includes("unknown") ||
+    normalized.includes("unrecognized") ||
+    normalized.includes("unsupported") ||
+    message.includes("未知") ||
+    message.includes("不明")
+  );
 }
