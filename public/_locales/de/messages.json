@@ -1,0 +1,17 @@
+{
+  "extensionName": {
+    "message": "AI Translate Assistant"
+  },
+  "extensionDescription": {
+    "message": "KI-Übersetzungserweiterung für Auswahlübersetzung, zweisprachige Seitenübersetzung und Wiederherstellung mit einem Klick."
+  },
+  "commandTranslateSelection": {
+    "message": "Auswahl übersetzen"
+  },
+  "commandTranslateFullPage": {
+    "message": "Seite übersetzen"
+  },
+  "commandRestorePage": {
+    "message": "Seite wiederherstellen"
+  }
+}

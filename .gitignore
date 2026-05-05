@@ -1,0 +1,13 @@
+node_modules/
+dist/
+release/
+
+.DS_Store
+*.log
+
+.env
+.env.*
+
+*.crx
+*.pem
+*.zip

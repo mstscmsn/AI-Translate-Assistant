@@ -1,0 +1,172 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 328px;
+  margin: 0;
+  color: #18211f;
+  background: #f7faf8;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+button,
+select {
+  font: inherit;
+}
+
+.popup-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  padding: 14px;
+}
+
+.popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.eyebrow {
+  margin: 0 0 3px;
+  color: #0f766e;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: 0;
+}
+
+.icon-button,
+.button-grid button,
+.primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 36px;
+  border: 1px solid #c9d8d3;
+  border-radius: 7px;
+  color: #173c35;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.icon-button {
+  width: 34px;
+  min-height: 34px;
+  padding: 0;
+}
+
+button:hover {
+  border-color: #14b8a6;
+  background: #effaf7;
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.control-group {
+  display: grid;
+  gap: 7px;
+}
+
+.control-group label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #40514c;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+select {
+  width: 100%;
+  min-height: 38px;
+  border: 1px solid #c9d8d3;
+  border-radius: 7px;
+  color: #17201d;
+  background: #ffffff;
+  padding: 0 10px;
+}
+
+.progress {
+  position: relative;
+  height: 24px;
+  overflow: hidden;
+  border-radius: 7px;
+  background: #e5eee9;
+}
+
+.progress div {
+  height: 100%;
+  border-radius: inherit;
+  background: #14b8a6;
+  transition: width 160ms ease;
+}
+
+.progress span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #11332e;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.popup-status {
+  border: 1px solid #d9e4e0;
+  border-radius: 7px;
+  color: #2d3d39;
+  background: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  padding: 8px 10px;
+}
+
+.primary-button {
+  width: 100%;
+  min-height: 42px;
+  border-color: #0f766e;
+  color: #ffffff;
+  background: #0f766e;
+  font-weight: 800;
+}
+
+.primary-button:hover {
+  color: #ffffff;
+  background: #115e59;
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.button-grid button {
+  min-width: 0;
+  padding: 0 10px;
+}
+
+.active-tab {
+  margin-top: 2px;
+  overflow: hidden;
+  color: #687773;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

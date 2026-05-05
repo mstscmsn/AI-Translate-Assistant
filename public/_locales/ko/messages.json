@@ -1,0 +1,17 @@
+{
+  "extensionName": {
+    "message": "AI Translate Assistant"
+  },
+  "extensionDescription": {
+    "message": "선택 번역, 전체 페이지 이중 언어 번역, 원클릭 복원을 지원하는 AI 번역 확장 프로그램."
+  },
+  "commandTranslateSelection": {
+    "message": "선택 텍스트 번역"
+  },
+  "commandTranslateFullPage": {
+    "message": "전체 페이지 번역"
+  },
+  "commandRestorePage": {
+    "message": "원래 페이지 복원"
+  }
+}

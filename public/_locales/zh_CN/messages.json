@@ -1,0 +1,17 @@
+{
+  "extensionName": {
+    "message": "AI Translate Assistant"
+  },
+  "extensionDescription": {
+    "message": "划词翻译、全网页翻译、双语对照和一键恢复的 AI 翻译插件。"
+  },
+  "commandTranslateSelection": {
+    "message": "翻译选中文本"
+  },
+  "commandTranslateFullPage": {
+    "message": "全网页翻译"
+  },
+  "commandRestorePage": {
+    "message": "恢复原网页"
+  }
+}

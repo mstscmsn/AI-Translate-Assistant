@@ -1,0 +1,17 @@
+{
+  "extensionName": {
+    "message": "AI Translate Assistant"
+  },
+  "extensionDescription": {
+    "message": "AI translation extension for selection translation, full-page bilingual translation, and one-click restore."
+  },
+  "commandTranslateSelection": {
+    "message": "Translate selected text"
+  },
+  "commandTranslateFullPage": {
+    "message": "Translate full page"
+  },
+  "commandRestorePage": {
+    "message": "Restore original page"
+  }
+}

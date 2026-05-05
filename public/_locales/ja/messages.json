@@ -1,0 +1,17 @@
+{
+  "extensionName": {
+    "message": "AI Translate Assistant"
+  },
+  "extensionDescription": {
+    "message": "選択翻訳、ページ全体のバイリンガル翻訳、ワンクリック復元に対応したAI翻訳拡張機能。"
+  },
+  "commandTranslateSelection": {
+    "message": "選択テキストを翻訳"
+  },
+  "commandTranslateFullPage": {
+    "message": "ページ全体を翻訳"
+  },
+  "commandRestorePage": {
+    "message": "ページを復元"
+  }
+}

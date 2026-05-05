@@ -1,0 +1,17 @@
+{
+  "extensionName": {
+    "message": "AI Translate Assistant"
+  },
+  "extensionDescription": {
+    "message": "支援劃詞翻譯、全網頁雙語翻譯與一鍵還原的 AI 翻譯外掛。"
+  },
+  "commandTranslateSelection": {
+    "message": "翻譯選取文字"
+  },
+  "commandTranslateFullPage": {
+    "message": "全網頁翻譯"
+  },
+  "commandRestorePage": {
+    "message": "還原原網頁"
+  }
+}

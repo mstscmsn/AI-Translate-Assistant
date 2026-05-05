@@ -1,0 +1,17 @@
+{
+  "extensionName": {
+    "message": "AI Translate Assistant"
+  },
+  "extensionDescription": {
+    "message": "Extensión de traducción con IA para selección de texto, traducción bilingüe de páginas y restauración con un clic."
+  },
+  "commandTranslateSelection": {
+    "message": "Traducir selección"
+  },
+  "commandTranslateFullPage": {
+    "message": "Traducir página"
+  },
+  "commandRestorePage": {
+    "message": "Restaurar página"
+  }
+}

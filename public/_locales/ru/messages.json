@@ -1,0 +1,17 @@
+{
+  "extensionName": {
+    "message": "AI Translate Assistant"
+  },
+  "extensionDescription": {
+    "message": "AI-расширение для перевода выделенного текста, двуязычного перевода страниц и восстановления одним нажатием."
+  },
+  "commandTranslateSelection": {
+    "message": "Перевести выделение"
+  },
+  "commandTranslateFullPage": {
+    "message": "Перевести страницу"
+  },
+  "commandRestorePage": {
+    "message": "Восстановить страницу"
+  }
+}

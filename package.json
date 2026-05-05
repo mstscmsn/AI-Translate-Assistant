@@ -1,0 +1,26 @@
+{
+  "name": "ai-translate-extension",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc --noEmit && vite build",
+    "package:webstore": "npm run build && mkdir -p release && cd dist && zip -rFS ../release/ai-translate-assistant-0.1.0-webstore.zip . -x '*/.DS_Store' '.DS_Store' 'icons/*.svg' 'icons/icon1024.png' 'icons/*preview*.png'",
+    "typecheck": "tsc --noEmit",
+    "preview": "vite preview --host 127.0.0.1"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.268",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.0"
+  }
+}
