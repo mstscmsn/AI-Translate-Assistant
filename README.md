@@ -66,12 +66,6 @@ Default browser command shortcuts:
 - `Alt+Shift+F`: translate the current page
 - `Alt+Shift+R`: restore the original page
 
-Fallback content-script shortcuts:
-
-- `Ctrl+Shift+Y`: translate selected text
-- `Ctrl+Shift+U`: translate the current page
-- `Ctrl+Shift+E`: restore the original page
-
 You can customize browser command shortcuts from your browser's extension shortcuts page, such as `chrome://extensions/shortcuts`.
 
 ### Privacy
@@ -80,10 +74,6 @@ You can customize browser command shortcuts from your browser's extension shortc
 - API keys are not written to page DOM, injected translation nodes, or extension logs.
 - Translation requests are sent only to the API base URL configured by the user.
 - The API base URL must use HTTPS.
-
-### Contributing
-
-Issues and pull requests are welcome. For changes that affect browser APIs, please test at least one Chrome browser and one non-Chrome Chromium browser when possible.
 
 ### License
 
@@ -143,12 +133,6 @@ release/ai-translate-assistant-0.1.2-webstore.zip
 - `Alt+Shift+F`：翻译当前网页
 - `Alt+Shift+R`：恢复原网页
 
-网页内兜底快捷键：
-
-- `Ctrl+Shift+Y`：翻译选中文本
-- `Ctrl+Shift+U`：翻译当前网页
-- `Ctrl+Shift+E`：恢复原网页
-
 加载扩展后可在浏览器扩展快捷键页面修改命令快捷键，例如 `chrome://extensions/shortcuts`。
 
 ### 隐私
@@ -157,10 +141,6 @@ release/ai-translate-assistant-0.1.2-webstore.zip
 - API Key 不会写入页面 DOM、注入的译文节点或扩展日志。
 - 翻译请求只会发送到用户配置的 API 地址。
 - API 地址必须使用 HTTPS。
-
-### 参与贡献
-
-欢迎提交 Issue 和 Pull Request。涉及浏览器 API 的改动，建议尽量同时测试 Chrome 和至少一个非 Chrome 的 Chromium 浏览器。
 
 ### 开源协议
 
